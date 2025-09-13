@@ -20,15 +20,12 @@ const Tracks = () => {
     },
   ]);
 
-  // Store which song is playing (null = none)
   const [currentSong, setCurrentSong] = useState(null);
 
   const togglePlay = (index) => {
     if (currentSong === index) {
-      // Pause if clicked again
       setCurrentSong(null);
     } else {
-      // Play the clicked song
       setCurrentSong(index);
     }
   };
@@ -43,13 +40,11 @@ const Tracks = () => {
             key={index}
             className="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-100 rounded-xl p-4 hover:shadow-md transition"
           >
-            {/* Song Info */}
             <div className="flex flex-col">
               <h2 className="text-lg font-semibold">{song.title}</h2>
               <p className="text-sm text-gray-500">{song.artist}</p>
             </div>
 
-            {/* Play/Pause Button */}
             <button
               onClick={() => togglePlay(index)}
               className="mt-2 sm:mt-0 flex items-center gap-2 text-blue-600 hover:text-blue-800"
