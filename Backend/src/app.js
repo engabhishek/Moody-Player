@@ -1,6 +1,8 @@
 const express = require("express");
-const create = require("prompt-sync");
+const songRoutes = require("./routes/song.routes");
 
-const app = express()
+const app = express();
+app.use(express.json());
+app.use("/", songRoutes);
 
-module.exports = app
+module.exports = app;
