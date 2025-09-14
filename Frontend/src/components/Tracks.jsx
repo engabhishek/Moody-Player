@@ -38,7 +38,7 @@ const Tracks = () => {
         {songs.map((song, index) => (
           <li
             key={index}
-            className="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-100 rounded-xl p-4 hover:shadow-md transition"
+            className="relative flex flex-col sm:flex-row sm:items-center justify-between bg-gradient-to-t from-gray-300 to-white rounded-xl p-4 hover:shadow-lg hover:shadow-gray-500 transition"
           >
             <div className="flex flex-col">
               <h2 className="text-lg font-semibold">{song.title}</h2>
