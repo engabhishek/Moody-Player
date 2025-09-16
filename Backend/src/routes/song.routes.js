@@ -8,11 +8,10 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.post("/songs", upload.single("audioUrl"), async (req, res) => {
   console.log(req.body);
   console.log(req.file);
-  const fileData = await uploadFile(req.file);
+  const fileData = await uploadFile(req.file, req.body.title);
   console.log(fileData);
-  
 
-  res.json({
+  res.status(201).json({
     message: "songs created successfully",
     song: req.body,
   });
