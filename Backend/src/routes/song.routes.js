@@ -9,6 +9,9 @@ router.post("/songs", upload.single("audioUrl"), async (req, res) => {
   console.log(req.body);
   console.log(req.file);
   const fileData = await uploadFile(req.file);
+  console.log(fileData);
+  
+
   res.json({
     message: "songs created successfully",
     song: req.body,

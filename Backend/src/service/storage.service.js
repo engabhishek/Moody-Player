@@ -1,8 +1,6 @@
-import ImageKit from "imagekit";
+const ImageKit = require("imagekit");
 
-var ImageKit = require("imagekit");
-
-var imagekit = new ImageKit({
+const imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLICKEY,
   privateKey: process.env.IMAGEKIT_PRIVATEKEY,
   urlEndpoint: process.env.IMAGEKIT_URL,
