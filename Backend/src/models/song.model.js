@@ -7,6 +7,6 @@ const songSchema = new mongoose.Schema({
   mood: String,
 });
 
-const song = mongoose.model("song", songSchema);
+const Song = mongoose.model("Song", songSchema);
 
-module.exports = song;
+module.exports = Song;
