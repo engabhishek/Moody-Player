@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
-
-const FaceExpression = () => {
+import axios from "axios";
+const FaceExpression = ({ setSongs }) => {
   const videoRef = useRef();
   const [expression, setExpression] = useState("");
 
@@ -25,27 +25,39 @@ const FaceExpression = () => {
   };
 
   // 3️⃣ Detect expression only on button click
-  const detectFace = async () => {
-    if (!videoRef.current) return;
+const detectFace = async () => {
+  if (!videoRef.current) return;
 
-    const detections = await faceapi
-      .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-      .withFaceLandmarks()
-      .withFaceExpressions();
+  const detections = await faceapi
+    .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+    .withFaceLandmarks()
+    .withFaceExpressions();
 
-    if (detections.length > 0) {
-      const exp = detections[0].expressions;
-      const maxExp = Object.keys(exp).reduce((a, b) =>
-        exp[a] > exp[b] ? a : b
-      );
+  if (detections.length > 0) {
+    const exp = detections[0].expressions;
+    const maxExp = Object.keys(exp).reduce((a, b) =>
+      exp[a] > exp[b] ? a : b
+    );
 
-      console.log("😃 Detected Expression:", maxExp);
-      setExpression(maxExp);
-    } else {
-      console.log("⚠️ No face detected");
-      setExpression("No face detected");
-    }
-  };
+    console.log("😃 Detected Expression:", maxExp);
+    setExpression(maxExp);
+
+    axios
+      .get(`http://localhost:3000/songs?mood=${maxExp}`)
+      .then((response) => {
+        console.log(response.data);
+        setSongs(response.data.songs);
+      })
+      .catch((err) => {
+        console.error("❌ Axios error:", err);
+      });
+
+  } else {
+    console.log("⚠️ No face detected");
+    setExpression("No face detected");
+  }
+};
+
 
   // 🚀 Load models & start video when component mounts
   useEffect(() => {
